@@ -1,0 +1,1 @@
+prompt("Whats crackin", "yo mommas ass");
