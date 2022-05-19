@@ -43,83 +43,100 @@ function computerPlay(){
 
 function playRound(playerSelection, computerSelection){
     let playerChoice = playerSelection.toLowerCase();
+    let para = document.getElementById('result');
+    let playerScore = document.getElementById('playerScore');
+    let computerScore = document.getElementById('computerScore');
+    let ties = document.getElementById('ties');
+    let winner = document.getElementById('winner');
+
+    winner.textContent = "";
     
     
+
     if (playerChoice === "r" || playerChoice === "p" || playerChoice === "s"){
         total++;
         if(playerChoice === "r"){
             playerRockCount++;
             if(computerSelection === "Scissors"){
-                console.log( "You Win! Rock beats Scissors!");
+                para.innerText = "You Win! Rock beats Scissors!";
                 winCount++;
                 enemyScissorsCount++;
                 victoriousRock++;
-                console.log("Wins: " + winCount);
-                return win;
+                playerScore.innerText = "Wins: " + winCount;
             } else if (computerSelection === "Rock"){
-                console.log( "Tie Game! You both chose Rock!");
+                para.innerText = "Tie Game! You both chose Rock!";
                 tieCount++;
                 enemyRockCount++;
-                console.log("Ties: " + tieCount);
-                return tie;
+                ties.innerText = "Ties: " + tieCount;
             } else {
-                console.log( "You Lose! Rock loses to Paper!");
+                para.innerText = "You Lose! Rock loses to Paper!";
                 loseCount++;
                 enemyPaperCount++;
                 victoriousEnemyPaper++;
-                console.log("Loses: " + loseCount);
-                return lose;
+                computerScore.innerText = "Losses: " + loseCount;
             }
         }
         else if(playerChoice === "p"){
             playerPaperCount++;
             if(computerSelection === "Rock"){
-                console.log( "You Win! Paper beats Rock!");
+                para.innerText =  "You Win! Paper beats Rock!";
                 winCount++;
                 enemyRockCount++;
                 victoriousPaper++;
-                console.log("Wins: " + winCount);
-                return win;
+                playerScore.innerText = "Wins: " + winCount;
             } else if (computerSelection === "Paper"){
-                console.log( "Tie Game! You both chose Paper!");
+                para.innerText = "Tie Game! You both chose Paper!";
                 tieCount++;
                 enemyPaperCount++;
-                console.log("Ties: " + tieCount);
-                return tie;
+                ties.innerText = "Ties: " + tieCount;
             } else {
-                console.log( "You Lose! Paper loses to Scissors!");
+                para.innerText = "You Lose! Paper loses to Scissors!";
                 loseCount++;
                 enemyScissorsCount++;
                 victoriousEnemyScissor++;
-                console.log("Loses: " + loseCount);
-                return lose;
+                computerScore.innerText = "Losses: " + loseCount;
             }
         } else {
             playerScissorsCount++;
             if(computerSelection === "Paper"){
-                console.log( "You Win! Scissors beats Paper!");
+                para.innerText = "You Win! Scissors beats Paper!";
                 winCount++;
                 enemyPaperCount++;
                 victoriousScissor++;
-                console.log("Wins: " + winCount);
-                return win;
+                playerScore.innerText = "Wins: " + winCount;
             } else if (computerSelection === "Scissors"){
-                console.log( "Tie Game! You both chose Scissors!");
+                para.innerText = "Tie Game! You both chose Scissors!";
                 tieCount++;
                 enemyScissorsCount++;
-                console.log("Ties: " + tieCount);
-                return tie;
+                ties.innerText = "Ties: " + tieCount;
             } else {
-                console.log( "You Lose! Scissors loses to Rock!");
+                para.innerText = "You Lose! Scissors loses to Rock!";
                 loseCount++;
                 enemyRockCount++;
                 victoriousEnemyRock++;
-                console.log("Loses: " + loseCount);
-                return lose;
+                computerScore.innerText = "Losses: " + loseCount;
             }
         }
     }else {
         console.log("invalid player selection, Redo round: " + (loseCount + tieCount + winCount + 1));
+    }
+
+    if(winCount == 5){
+        winner.innerText = "The Player Wins";
+        winCount = 0;
+        loseCount = 0;
+        tieCount = 0;
+        playerScore.innerText = "Wins: 0";
+        computerScore.innerText = "Losses: 0";
+        ties.innerText = "Ties: 0";
+    } else if(loseCount == 5) {
+        winner.innerText = "The Computer Wins"
+        winCount = 0;
+        loseCount = 0;
+        tieCount = 0;
+        playerScore.innerText = "Wins: 0";
+        computerScore.innerText = "Losses: 0";
+        ties.innerText = "Ties: 0";
     }
 }
 
@@ -161,3 +178,23 @@ function statCheck(){
     console.log("Scissors Hurled at the Player: " + enemyScissorsCount + " , " + victoriousEnemyScissor + " of which were successful");
 }
 
+let rockBtn = document.querySelector('#rock')
+let paperBtn = document.querySelector('#paper')
+let scissorsBtn = document.querySelector('#scissors')
+let statsBtn = document.querySelector('#stats')
+
+rockBtn.addEventListener('click', () => {
+    playRound('r',computerPlay());
+} );
+
+paperBtn.addEventListener('click', () => {
+    playRound('p',computerPlay());
+} );
+
+scissorsBtn.addEventListener('click', () => {
+    playRound('s',computerPlay());
+} );
+
+statsBtn.addEventListener('click', () => {
+    statCheck();
+});
